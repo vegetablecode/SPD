@@ -1,8 +1,10 @@
 import os
 import sys
 import re
+import copy
 from src.task import Task
 from src.bruteforce import permute
+from src.johnson import johnson2
 
 
 def makespan(order, tasks, numb_of_machines):
@@ -10,7 +12,6 @@ def makespan(order, tasks, numb_of_machines):
     for j in range(0, numb_of_machines):
         times.append(0)
     for i in order:
-        i -= 1
         times[0] += tasks[i].times[0]
         for j in range(1, numb_of_machines):
             if times[j] < times[j-1]:
@@ -44,7 +45,7 @@ with open(filename) as fp:
 
 # generating index table
 index_table = []
-for i in range(1, numb_of_items+1):
+for i in range(0, numb_of_items):
     index_table.append(i)
 
 
@@ -59,3 +60,10 @@ for p in permute(index_table):
 
 print("Best order: {}" .format(best_order))
 print("Best makespan: {}" .format(best_makespan))
+
+
+# searching for min makespan with Johnson
+johnson_order = johnson2(copy.deepcopy(tasks))
+johnson_makespan = makespan(johnson_order, tasks, numb_of_machines)
+print("Best order (Johnson): {}" .format(johnson_order))
+print("Best makespan (Johnson): {}" .format(johnson_makespan))
