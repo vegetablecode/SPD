@@ -1,3 +1,13 @@
+from task import Task
+#Johnson main function
+def johnson(tasks,numb_of_machines):
+    if numb_of_machines == 2:
+        print("Model dwumaszynowy")
+        return johnson2(tasks)
+    else:
+        print("Model trzymaszynowy")
+        return johnson3(tasks)
+#Johnson in case of two machines
 def johnson2(tasks):
     list1 = []
     list2 = []
@@ -17,3 +27,12 @@ def johnson2(tasks):
             list2.insert(0, tasks[shortest_index_2].index)
             del tasks[shortest_index_2]
     return list1+list2
+#Johnson in case of three machines
+def johnson3(tasks):
+    #Creating 2 virtual machines
+    virtualTasks = []
+    for i in range(0,len(tasks)):
+        firstComp = tasks[i].times[0] + tasks[i].times[1]
+        secondComp = tasks[i].times[1] + tasks[i].times[2]
+        virtualTasks.append(Task(i,[firstComp,secondComp]))
+    return johnson2(virtualTasks)
