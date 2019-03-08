@@ -1,4 +1,4 @@
-from src.task import Task
+from task import Task
 import os
 import sys
 import re
@@ -27,4 +27,3 @@ def get_data(dataset_name):
                 tasks.append(Task(cnt - 1, n))
             cnt += 1
     return tasks, numb_of_machines
-

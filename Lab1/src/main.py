@@ -1,8 +1,8 @@
 import copy
-from src.datareader import get_data
-from src.bruteforce import bruteforce
-from src.johnson import johnson2
-from src.makespan import makespan
+from datareader import get_data
+from bruteforce import bruteforce
+from johnson import johnson
+from makespan import makespan
 
 tasks, numb_of_machines = get_data("data.1")
 
@@ -16,8 +16,7 @@ print("Best makespan (Bruteforce): {}" .format(bruteforce_makespan))
 
 
 # searching for min makespan with Johnson
-johnson_order = johnson2(copy.deepcopy(tasks))
+johnson_order = johnson(copy.deepcopy(tasks),numb_of_machines)
 johnson_makespan = makespan(johnson_order, tasks, numb_of_machines)
 print("Best order (Johnson): {}" .format(johnson_order))
 print("Best makespan (Johnson): {}" .format(johnson_makespan))
-
