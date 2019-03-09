@@ -1,17 +1,21 @@
-from task import Task
-#Johnson main function
-def johnson(tasks,numb_of_machines):
+from src.task import Task
+
+
+# Johnson main function
+def johnson(tasks, numb_of_machines):
     if numb_of_machines == 2:
         print("Model dwumaszynowy")
         return johnson2(tasks)
     else:
         print("Model trzymaszynowy")
         return johnson3(tasks)
-#Johnson in case of two machines
+
+
+# Johnson in case of two machines
 def johnson2(tasks):
     list1 = []
     list2 = []
-    while len(tasks)>0:
+    while len(tasks) > 0:
         shortest_index_1 = 0  # index of shortest task for 1st machine
         shortest_index_2 = 0  # index of shortest task for 2st machine
         for i in range(0, len(tasks)):
@@ -27,12 +31,14 @@ def johnson2(tasks):
             list2.insert(0, tasks[shortest_index_2].index)
             del tasks[shortest_index_2]
     return list1+list2
-#Johnson in case of three machines
+
+
+# Johnson in case of three machines
 def johnson3(tasks):
-    #Creating 2 virtual machines
-    virtualTasks = []
-    for i in range(0,len(tasks)):
-        firstComp = tasks[i].times[0] + tasks[i].times[1]
-        secondComp = tasks[i].times[1] + tasks[i].times[2]
-        virtualTasks.append(Task(i,[firstComp,secondComp]))
-    return johnson2(virtualTasks)
+    # Creating 2 virtual machines
+    virtual_tasks = []
+    for i in range(0, len(tasks)):
+        first_comp = tasks[i].times[0] + tasks[i].times[1]
+        second_comp = tasks[i].times[1] + tasks[i].times[2]
+        virtual_tasks.append(Task(i, [first_comp, second_comp]))
+    return johnson2(virtual_tasks)

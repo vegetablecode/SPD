@@ -1,4 +1,4 @@
-from task import Task
+from src.task import Task
 import os
 import sys
 import re
@@ -7,7 +7,7 @@ import re
 def get_data(dataset_name):
     # open file with data
     file_dir = os.path.dirname(os.path.realpath('__file__'))
-    filename = os.path.join(file_dir, '../datasets/data.1')
+    filename = os.path.join(file_dir, '../datasets/' + dataset_name)
 
     # if the file does not exist
     if not os.path.isfile(filename):
