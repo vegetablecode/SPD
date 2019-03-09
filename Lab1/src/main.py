@@ -12,12 +12,16 @@ tasks, numb_of_machines = get_data("data.3")
 bruteforce_order = bruteforce(copy.deepcopy(tasks), numb_of_machines)
 bruteforce_makespan = makespan(bruteforce_order, tasks, numb_of_machines)
 
-print("Best order (Bruteforce): {}" .format(bruteforce_order))
-print("Best makespan (Bruteforce): {}" .format(bruteforce_makespan))
-
 # searching for min makespan with Johnson
 johnson_order = johnson(copy.deepcopy(tasks),numb_of_machines)
 johnson_makespan = makespan(johnson_order, tasks, numb_of_machines)
+
+
+# descriptions
+print("---------------------------")
+print("Best order (Bruteforce): {}" .format(bruteforce_order))
+print("Best makespan (Bruteforce): {}" .format(bruteforce_makespan))
+
 print("Best order (Johnson): {}" .format(johnson_order))
 print("Best makespan (Johnson): {}" .format(johnson_makespan))
 

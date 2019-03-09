@@ -20,6 +20,9 @@ def bruteforce(tasks, numb_of_machines):
     best_makespan = makespan(best_order, tasks, numb_of_machines)
 
     for p in permute(get_order(tasks)):
+        print("order: {}" .format(p))
+        print("makespan: {}" .format(makespan(p, tasks, numb_of_machines)))
+        print("---")
         if makespan(p, tasks, numb_of_machines) < best_makespan:
             best_order = list(p)
             best_makespan = makespan(p, tasks, numb_of_machines)
