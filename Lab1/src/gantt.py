@@ -39,7 +39,7 @@ def draw_gantt(order, tasks, numb_of_machines, time, label):
     for i in range(0, len(order)):
         natural_order.append(order[i]+1)
 
-    text = "Kolejność: " + ','.join(map(str, natural_order)) + " | Cmax: " + str(max(times)) + " | Czas: " + str(round(time, 3)) + " ms"
+    text = "Kolejnosc: " + ','.join(map(str, natural_order)) + " | Cmax: " + str(max(times)) + " | Czas: " + str(round(time, 3)) + " ms"
 
     plt.figtext(.13, .02, text, fontsize=14)
     plt.xticks(np.arange(0, max(times)+1, step=1))
