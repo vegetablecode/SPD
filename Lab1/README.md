@@ -1,4 +1,4 @@
-# Problem przepływowy (ang. flowshop)
+# Problem przepływowy (ang. flowshop) FINISHED
 
 
 #### Wnioski
