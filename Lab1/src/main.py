@@ -5,7 +5,7 @@ from src.johnson import johnson
 from src.makespan import makespan, get_order
 from src.gantt import draw_gantt
 
-tasks, numb_of_machines = get_data("data.2")
+tasks, numb_of_machines = get_data("data.8")
 
 
 # searching for min makespan with Bruteforce
