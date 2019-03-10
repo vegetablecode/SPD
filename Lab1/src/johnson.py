@@ -28,7 +28,7 @@ def johnson2(tasks):
             if tasks[i].times[1] < tasks[shortest_index_2].times[1]:
                 shortest_index_2 = i
         # if the shortest task is for 1st machine OR both of machines have the shortest task with the same time
-        if (shortest_index_1 == shortest_index_2) | (shortest_index_1 == shortest_index_2):
+        if (tasks[shortest_index_1].times[0] < tasks[shortest_index_2].times[1]) | (tasks[shortest_index_1].times[0] == tasks[shortest_index_2].times[1]):
             list1.append(tasks[shortest_index_1].index)
             del tasks[shortest_index_1]
         else:
