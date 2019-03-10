@@ -1,5 +1,5 @@
-from src.makespan import makespan
-from src.makespan import get_order
+from makespan import makespan
+from makespan import get_order
 from timeit import default_timer as timer
 
 

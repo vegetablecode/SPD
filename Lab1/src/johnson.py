@@ -1,4 +1,4 @@
-from src.task import Task
+from task import Task
 from timeit import default_timer as timer
 
 
