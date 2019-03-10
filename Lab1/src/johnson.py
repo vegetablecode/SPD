@@ -1,14 +1,18 @@
 from src.task import Task
+from timeit import default_timer as timer
 
 
 # Johnson main function
 def johnson(tasks, numb_of_machines):
+    start = timer()
     if numb_of_machines == 2:
         print("Model dwumaszynowy")
-        return johnson2(tasks)
+        order = johnson2(tasks)
     else:
         print("Model trzymaszynowy")
-        return johnson3(tasks)
+        order = johnson3(tasks)
+    stop = timer()
+    return order, (stop-start)*1000
 
 
 # Johnson in case of two machines

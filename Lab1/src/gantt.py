@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-def draw_gantt(order, tasks, numb_of_machines, label):
+def draw_gantt(order, tasks, numb_of_machines, time, label):
     # setup
     bar_size = 90
     machines = ["Maszyna 1", "Maszyna 2", "Maszyna 3"]
@@ -39,7 +39,7 @@ def draw_gantt(order, tasks, numb_of_machines, label):
     for i in range(0, len(order)):
         natural_order.append(order[i]+1)
 
-    text = "Kolejność: " + ','.join(map(str, natural_order))
+    text = "Kolejność: " + ','.join(map(str, natural_order)) + " | Cmax: " + str(max(times)) + " | Czas: " + str(round(time, 3)) + " ms"
 
     plt.figtext(.13, .02, text, fontsize=14)
     plt.xticks(np.arange(0, max(times)+1, step=1))

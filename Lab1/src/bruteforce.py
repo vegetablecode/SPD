@@ -1,5 +1,6 @@
 from src.makespan import makespan
 from src.makespan import get_order
+from timeit import default_timer as timer
 
 
 def permute(xs, low=0):
@@ -16,6 +17,7 @@ def permute(xs, low=0):
 
 
 def bruteforce(tasks, numb_of_machines):
+    start = timer()
     best_order = get_order(tasks)
     best_makespan = makespan(best_order, tasks, numb_of_machines)
 
@@ -26,4 +28,5 @@ def bruteforce(tasks, numb_of_machines):
         if makespan(p, tasks, numb_of_machines) < best_makespan:
             best_order = list(p)
             best_makespan = makespan(p, tasks, numb_of_machines)
-    return best_order
+    stop = timer()
+    return best_order, (stop-start)*1000
