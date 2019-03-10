@@ -39,10 +39,9 @@ def draw_gantt(order, tasks, numb_of_machines, label):
     for i in range(0, len(order)):
         natural_order.append(order[i]+1)
 
-    text = "Kolejność: " + ','.join(map(str, natural_order))
+    text = "Order: " + ','.join(map(str, natural_order))
 
     plt.figtext(.13, .02, text, fontsize=14)
     plt.xticks(np.arange(0, max(times)+1, step=1))
 
     return plt
-
