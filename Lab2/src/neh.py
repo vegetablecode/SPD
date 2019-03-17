@@ -25,8 +25,8 @@ def neh(tasks, numb_of_machines):
 
     # steps 3, 4: repeat n times (n = numb of tasks)
     solution_order = []
-    for i in omegas_order:  # for every task
-        # { pick task with the highest makespan }
+    for i in omegas_order:  # (3) get task with the highest omega value
+        # (4) insert task & pick task with the lowest makespan
         lowest_makespan = float("inf")
         lowest_makespan_sequence = []
         sequences = get_sequences(i, solution_order)
