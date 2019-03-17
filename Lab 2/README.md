@@ -1,0 +1,2 @@
+# Algorytm NEH
+
