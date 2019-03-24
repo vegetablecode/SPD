@@ -6,7 +6,7 @@ from neh import neh
 tasks, numb_of_machines = get_data("data.1")
 
 # searching for min makespan with NEH
-neh_order, neh_time = neh(copy.deepcopy(tasks), numb_of_machines,0)
+neh_order, neh_time = neh(copy.deepcopy(tasks), numb_of_machines,1)
 
-plt = draw_gantt(neh_order, tasks, numb_of_machines, neh_time, "Podzial zadan")
-plt.show()
+#plt = draw_gantt(neh_order, tasks, numb_of_machines, neh_time, "Podzial zadan")
+#plt.show()

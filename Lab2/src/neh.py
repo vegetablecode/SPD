@@ -4,6 +4,7 @@ from makespan import makespan
 
 
 def get_sequences(index, prev_sequence):
+    if index in prev_sequence: prev_sequence.remove(index)
     sequences = []
     for i in range(0, len(prev_sequence)+1):
         new_sequence = prev_sequence[:]
@@ -11,15 +12,34 @@ def get_sequences(index, prev_sequence):
         sequences.append(new_sequence)
     return sequences
 
-def nehIR1(void):
-    print("cos")
+#Defining IR1 modyfication
+def nehIR1(tasks_cp,solution_order_cp,lastIndexElement,numb_of_machines):
+    maxValue = 0
+    for index,task in enumerate(tasks_cp):
+        if index in solution_order_cp:
+            maxTemp = max(task.times)
+            if maxTemp > maxValue:
+                maxValue = maxTemp
+                taskNumber = index
+    if lastIndexElement == taskNumber: return solution_order_cp
+    lowest_makespan = float("inf")
+    lowest_makespan_sequence = []
+    sequences = get_sequences(taskNumber,solution_order_cp)
+    for sequence in sequences:
+        if makespan(sequence, tasks_cp, numb_of_machines) < lowest_makespan:
+            lowest_makespan = makespan(sequence, tasks_cp, numb_of_machines)
+            lowest_makespan_sequence = sequence
+    return lowest_makespan_sequence
 
+#Defining IR2 modyfication 
 def nehIR2(void):
     print("cos")
 
+#Defining IR3 modyfication
 def nehIR3(void):
     print("cos")
 
+#Defining IR4 modyfication
 def nehIR4(void):
     print("cos")
 
@@ -27,7 +47,6 @@ def nehIR4(void):
 
 def neh(tasks, numb_of_machines,neh_type):
     start = timer()
-
     # step 1: find omegas(j)
     omegas = []
     for task in tasks:
@@ -40,6 +59,7 @@ def neh(tasks, numb_of_machines,neh_type):
     solution_order = []
     for i in omegas_order:  # (3) get task with the highest omega value
         # (4) insert task & pick task with the lowest makespan
+        print i
         lowest_makespan = float("inf")
         lowest_makespan_sequence = []
         sequences = get_sequences(i, solution_order)
@@ -53,7 +73,7 @@ def neh(tasks, numb_of_machines,neh_type):
         # step5: IR methods implementation
         if neh_type == 1:
             #IR1
-            nehIR1()
+            solution_order = nehIR1(tasks,solution_order,i,numb_of_machines)
         if neh_type == 2:
             #IR2
             nehIR2()
