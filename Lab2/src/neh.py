@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
 import numpy as np
-from src.makespan import makespan
+from makespan import makespan
 
 
 def get_sequences(index, prev_sequence):
@@ -11,8 +11,21 @@ def get_sequences(index, prev_sequence):
         sequences.append(new_sequence)
     return sequences
 
+def nehIR1(void):
+    print("cos")
 
-def neh(tasks, numb_of_machines):
+def nehIR2(void):
+    print("cos")
+
+def nehIR3(void):
+    print("cos")
+
+def nehIR4(void):
+    print("cos")
+
+
+
+def neh(tasks, numb_of_machines,neh_type):
     start = timer()
 
     # step 1: find omegas(j)
@@ -37,5 +50,18 @@ def neh(tasks, numb_of_machines):
                 lowest_makespan_sequence = sequence
         solution_order = lowest_makespan_sequence
 
+        # step5: IR methods implementation
+        if neh_type == 1:
+            #IR1
+            nehIR1()
+        if neh_type == 2:
+            #IR2
+            nehIR2()
+        if neh_type == 3:
+            #IR3
+            nehIR3()
+        if neh_type == 4:
+            #IR4
+            nehIR4()
     stop = timer()
     return solution_order, (stop-start)*1000
