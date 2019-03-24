@@ -31,9 +31,24 @@ def nehIR1(tasks_cp,solution_order_cp,lastIndexElement,numb_of_machines):
             lowest_makespan_sequence = sequence
     return lowest_makespan_sequence
 
-#Defining IR2 modyfication 
-def nehIR2(void):
-    print("cos")
+#Defining IR2 modyfication
+def nehIR2(tasks_cp,solution_order_cp,lastIndexElement,numb_of_machines):
+    maxValue = 0
+    for index,task in enumerate(tasks_cp):
+        if index in solution_order_cp:
+            maxTemp = sum(task.times)
+            if maxTemp > maxValue:
+                maxValue = maxTemp
+                taskNumber = index
+    if lastIndexElement == taskNumber: return solution_order_cp
+    lowest_makespan = float("inf")
+    lowest_makespan_sequence = []
+    sequences = get_sequences(taskNumber,solution_order_cp)
+    for sequence in sequences:
+        if makespan(sequence, tasks_cp, numb_of_machines) < lowest_makespan:
+            lowest_makespan = makespan(sequence, tasks_cp, numb_of_machines)
+            lowest_makespan_sequence = sequence
+    return lowest_makespan_sequence
 
 #Defining IR3 modyfication
 def nehIR3(void):
@@ -76,7 +91,7 @@ def neh(tasks, numb_of_machines,neh_type):
             solution_order = nehIR1(tasks,solution_order,i,numb_of_machines)
         if neh_type == 2:
             #IR2
-            nehIR2()
+            solution_order = nehIR2(tasks,solution_order,i,numb_of_machines)
         if neh_type == 3:
             #IR3
             nehIR3()
