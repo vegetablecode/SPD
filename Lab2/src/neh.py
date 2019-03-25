@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
 import numpy as np
-from makespan import makespan
+from src.makespan import makespan
 
 
 def get_sequences(index, prev_sequence):
@@ -116,6 +116,6 @@ def neh(tasks, numb_of_machines,neh_type):
         if neh_type == 4:
             #IR4
             solution_order = nehIR4(tasks,solution_order,i,numb_of_machines)
-    print lowest_makespan
+    #print(lowest_makespan)
     stop = timer()
     return solution_order, (stop-start)*1000

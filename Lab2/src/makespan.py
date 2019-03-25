@@ -17,3 +17,10 @@ def makespan(order, tasks, numb_of_machines):
             times[j] += tasks[i].times[j]
 
     return max(times)
+
+
+def to_natural_order(order):
+    natural_order = []
+    for i in range(0, len(order)):
+        natural_order.append(order[i] + 1)
+    return natural_order
