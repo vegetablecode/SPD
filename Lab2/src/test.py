@@ -1,5 +1,5 @@
-from src.datareader import get_data
-from src.qneh import get_times_table, get_path_out_table, get_path_in_table, find_best_insertion_position
+from datareader import get_data
+from qneh import get_times_table, get_path_out_table, get_path_in_table, find_best_insertion_position
 
 tasks, numb_of_machines = get_data("data.000")
 

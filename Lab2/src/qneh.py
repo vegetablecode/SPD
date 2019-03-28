@@ -1,7 +1,7 @@
 from timeit import default_timer as timer
 import numpy as np
 import copy
-
+from makespan import makespan
 
 def column(matrix, i):
     return [row[i] for row in matrix]
@@ -103,8 +103,75 @@ def get_sequences(index, prev_sequence):
         sequences.append(new_sequence)
     return sequences
 
+def critical_path_creating(solution_order,tasks,numb_of_machines):
+    times_table = get_times_table(solution_order, tasks, numb_of_machines)
+    path_out_table = get_path_out_table(times_table)
+    path_in_table = get_path_in_table(times_table)
+    #Critical path with o and 1 matrix
+    i = 0
+    j = 0
+    criticalMatrix = np.zeros((numb_of_machines, len(solution_order)))
+    criticalMatrix.astype(int)
+    criticalMatrix[0,0] = 1
+    while i < len(solution_order) and j < numb_of_machines:
+        criticalMatrix[j,i] = 1
+        if j == len(solution_order) and i == numb_of_machines: break
+        if i < len(solution_order)-1 and j < numb_of_machines-1:
+            if path_out_table[j][i+1] < path_out_table[j+1][i]: j += 1
+            else: i += 1
+        else:
+            if j == numb_of_machines-1: i += 1
+            else:
+                if i == len(solution_order)-1: j += 1
+    return times_table,criticalMatrix
 
-def qneh(tasks, numb_of_machines):
+def IR1_mod(times_table, criticalMatrix, solution_order):
+    maxValue = 0
+    maxObj = -1
+    for i in range(0, len(times_table)):
+        for j in range(0, len(solution_order)):
+            if times_table[i][j] > maxValue and criticalMatrix[i][j] == 1:
+                maxValue = times_table[i][j]
+                maxObj = j
+    return solution_order[j]
+
+def IR2_mod(times_table, criticalMatrix, solution_order):
+    maxValue = 0
+    for j in range(0, len(solution_order)):
+        for i in range(0, len(times_table)):
+            if criticalMatrix[i][j] == 1:
+                temp = times_table[i][j]
+        if temp > maxValue:
+            maxValue = temp
+            maxTask = j
+    return solution_order[maxTask]
+
+def IR3_mod(times_table, criticalMatrix, solution_order):
+    maxValue = 0
+    for j in range(0, len(solution_order)):
+        temp = 0
+        for i in range(0, len(times_table)):
+            if criticalMatrix[i][j] == 1:
+                temp += 1
+        if temp > maxValue:
+            maxValue = temp
+            maxTask = j
+    return solution_order[maxTask]
+
+def IR4_mod(tasks,solution_order, numb_of_machines):
+    maxDiff = 0
+    baseTime = makespan(solution_order,tasks, numb_of_machines)
+    for i in solution_order:
+        idx = solution_order.index(i)
+        solution_order.remove(i)
+        tempTime = makespan(solution_order, tasks, numb_of_machines)
+        if baseTime - tempTime > maxDiff:
+            maxDiff = baseTime - tempTime
+            maxTask = i
+        solution_order.insert(idx, i)
+    return maxTask
+
+def qneh(tasks, numb_of_machines,neh_type):
     start = timer()
     # step 1: find omegas(j)
     omegas = []
@@ -113,7 +180,6 @@ def qneh(tasks, numb_of_machines):
 
     # step 2: sort in descending order (get sorted order) [args]
     omegas_order = np.argsort(-np.array(omegas)).tolist()
-
     # steps 3, 4: repeat n times (n = numb of tasks)
     solution_order = []
     for i in omegas_order:  # (3) get argument of next task with the highest omega value
@@ -122,8 +188,35 @@ def qneh(tasks, numb_of_machines):
         path_out_table = get_path_out_table(times_table)
         path_in_table = get_path_in_table(times_table)
         best_insertion_position = find_best_insertion_position(tasks, numb_of_machines, i, solution_order, times_table, path_in_table, path_out_table)
-
         solution_order.insert(best_insertion_position, i)
+        # step5: IR methods implementation
+        objectToRemove = i
+        if neh_type == 1:
+            #IR1
+            times_table, criticalMatrix = critical_path_creating(solution_order,tasks,numb_of_machines)
+            objectToRemove = IR1_mod(times_table, criticalMatrix,solution_order)
+
+        if neh_type == 2:
+            #IR2
+            times_table, criticalMatrix = critical_path_creating(solution_order,tasks,numb_of_machines)
+            objectToRemove = IR2_mod(times_table, criticalMatrix,solution_order)
+
+        if neh_type == 3:
+            #IR3
+            times_table, criticalMatrix = critical_path_creating(solution_order,tasks,numb_of_machines)
+            objectToRemove = IR3_mod(times_table, criticalMatrix,solution_order)
+
+        if neh_type == 4:
+            #IR4
+            objectToRemove = IR4_mod(tasks, solution_order, numb_of_machines)
+
+        if i != objectToRemove:
+            solution_order.remove(objectToRemove)
+            times_table = get_times_table(solution_order, tasks, numb_of_machines)
+            path_out_table = get_path_out_table(times_table)
+            path_in_table = get_path_in_table(times_table)
+            best_insertion_position = find_best_insertion_position(tasks, numb_of_machines, objectToRemove, solution_order, times_table, path_in_table, path_out_table)
+            solution_order.insert(best_insertion_position, objectToRemove)
 
     stop = timer()
     return solution_order, (stop - start) * 1000
