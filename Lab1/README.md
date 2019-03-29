@@ -1,2 +1,2 @@
-# Algorytm NEH
-
+# Bruteforce, johnson algorithms
+# FINISHED
