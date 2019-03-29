@@ -1,2 +1,2 @@
-#NEH algorithms, acceleration, NEH modyfication
-#FINISHED
+# NEH algorithms, acceleration, NEH modyfication
+# FINISHED
