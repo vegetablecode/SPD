@@ -1,0 +1,148 @@
+Sprawozdanie Laboratorium 2
+Sterowanie Procesami Dyskretnymi
+28 marzec 2019 r.
+Kamil Uhryn
+Adam Krzykala
+
+1. Algorytm NEH
+Pierwszym etapem bylo zaimplementowanie algorytmu NEH dla instancji o roznej
+liczbie maszyn i zadan. Jakosc testowanych algorytmow wyrazono
+w stosunku do algorytmu NEH (wartosc ujemna oznacza gorsze wyniki niz algorytm
+NEH, dodatnia lepsze; im wieksza liczba tym lepszy rezultat).
+Algorytm NEH byl w stanie odczytac wszystkie instancje i podac rozwiazanie.
+
+2. Drugim etapem bylo porownanie algorytmu NEH do Johnsona, czy tez przegladu
+zupelnego.
+
++------+---------------------+------------------+--------------+----------------------+-------------------+----------------+
+| l.p. | Bruteforce makespan | Johnson makespan | Neh makespan | Czas bruteforce [ms] | Czas Johnson [ms] | Czas Neh [ms]  |
++------+---------------------+------------------+--------------+----------------------+-------------------+----------------+
+|  1   |          54         |        55        |      55      |    6337.05306053     |   0.135898590088  | 1.22714042664  |
+|  2   |          55         |        60        |      57      |    6197.89481163     |   0.113010406494  | 1.10411643982  |
+|  3   |          49         |        49        |      49      |    5921.71597481     |   0.123023986816  | 1.35016441345  |
+|  4   |          56         |        56        |      56      |    6468.82486343     |   0.247955322266  |  1.4660358429  |
+|  5   |          50         |        51        |      50      |    6174.56793785     |  0.0979900360107  | 1.12199783325  |
+|  6   |          53         |        53        |      53      |    6826.94387436     |   0.101089477539  | 1.55115127563  |
+|  7   |          50         |        53        |      50      |    6236.88101768     |   0.216960906982  | 1.44004821777  |
+|  8   |          54         |        54        |      54      |     7303.7481308     |  0.0998973846436  | 1.11198425293  |
+|  9   |          58         |        58        |      58      |    7860.57114601     |   0.139951705933  | 5.59592247009  |
+|  10  |          47         |        48        |      47      |    6309.02290344     |  0.0898838043213  | 1.19805335999  |
+|  11  |          53         |        57        |      53      |    6385.56098938     |   0.137805938721  | 1.21998786926  |
+|  12  |          45         |        45        |      45      |    5571.94709778     |  0.0920295715332  | 0.977039337158 |
+|  13  |          40         |        43        |      40      |    6327.83603668     |   0.282049179077  | 1.54995918274  |
+|  14  |          45         |        49        |      45      |    7623.10099602     |  0.0970363616943  | 1.01208686829  |
+|  15  |          46         |        52        |      46      |    5760.42485237     |   0.159025192261  | 1.47199630737  |
+|  16  |          57         |        59        |      57      |    6336.20095253     |   0.133991241455  | 1.56188011169  |
+|  17  |          37         |        44        |      40      |    6955.15203476     |   0.127077102661  | 1.19590759277  |
+|  18  |          55         |        56        |      55      |    6645.20215988     |  0.0958442687988  | 1.06310844421  |
+|  19  |          47         |        47        |      47      |    6118.42608452     |   0.154972076416  | 1.42288208008  |
+|  20  |          52         |        54        |      52      |    5858.68501663     |   0.100135803223  | 1.64413452148  |
++------+---------------------+------------------+--------------+----------------------+-------------------+----------------+
+
+Z powyzszego porownania wynika, ze algorytm Johnsona nie daje zawsze najlepszego rozzwiazania.
+Dane wejsciowe musza spelniac okreslone wymagania. Algorytm bruteforce daje zawsze
+najmniejszy czas makespan, jednak czas jego dzialania jest niewspolmierny do osiagnietego
+wyniku.  Co prawda algorytm neh w przypadku 3 maszyn i 8 zadan okazal sie wolniejszy
+niz algorytm Johnsona, ale zawsze dal lepszy lub co najmniej ten sam wynik makespan.
+
+Ponizej przedstawiono porownanie algorytmu Johnsona i Neh dla 10 maszyn i 20 zadan.
+
+----------------------------------------------------------
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+| l.p. | Bruteforce makespan | Johnson makespan | Neh makespan | Czas bruteforce [ms] | Czas Johnson [ms] | Czas Neh [ms] |
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+|  1   |                     |       192        |     165      |                      |   0.314950942993  | 55.2921295166 |
+|  2   |                     |       208        |     168      |                      |   0.415086746216  | 55.2539825439 |
+|  3   |                     |       178        |     163      |                      |   0.470876693726  | 43.5519218445 |
+|  4   |                     |       180        |     154      |                      |   0.46181678772   | 56.3189983368 |
+|  5   |                     |       196        |     160      |                      |   0.466108322144  | 43.7278747559 |
+|  6   |                     |       168        |     154      |                      |   0.458955764771  | 41.2390232086 |
+|  7   |                     |       181        |     161      |                      |   0.325918197632  | 35.2630615234 |
+|  8   |                     |       188        |     160      |                      |   0.32901763916   | 31.4350128174 |
+|  9   |                     |       189        |     160      |                      |   0.319957733154  | 38.8209819794 |
+|  10  |                     |       191        |     166      |                      |   0.330924987793  | 34.1329574585 |
+|  11  |                     |       184        |     152      |                      |   0.333070755005  | 36.2949371338 |
+|  12  |                     |       190        |     161      |                      |   0.453948974609  |  33.490896225 |
+|  13  |                     |       180        |     153      |                      |   0.324964523315  | 33.6470603943 |
+|  14  |                     |       177        |     165      |                      |   0.526905059814  | 42.8779125214 |
+|  15  |                     |       191        |     165      |                      |   0.406980514526  | 33.0998897552 |
+|  16  |                     |       184        |     160      |                      |   0.338792800903  | 40.5650138855 |
+|  17  |                     |       184        |     154      |                      |   0.427961349487  | 40.6241416931 |
+|  18  |                     |       194        |     162      |                      |   0.45919418335   | 38.7940406799 |
+|  19  |                     |       180        |     153      |                      |   0.447034835815  | 41.1078929901 |
+|  20  |                     |       184        |     157      |                      |   0.321865081787  | 33.0550670624 |
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+
+Z powyzszego zestawienie wynika, ze algorytm Johnson jest dalej szybszy niz algorytm Neh, jednak w przypadku
+checi zoptymalizowania maksymalnie produkcji staje sie on calkowicie bezuzyteczny przy wiekszej ilosci
+maszyn i zadan, gdyz roznice w czasach makespan sa juz znaczne i siegaja 20%.
+Czas algorytmu Johnsona przy znacznym wzroscie danych nie wydluzyl sie znacznie, czego nie mozna
+powiedziec o algorytmie neh.
+
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+| l.p. | Bruteforce makespan | Johnson makespan | Neh makespan | Czas bruteforce [ms] | Czas Johnson [ms] | Czas Neh [ms] |
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+|  1   |                     |                  |     265      |                      |                   | 244.912862778 |
+|  2   |                     |                  |     253      |                      |                   | 239.557027817 |
+|  3   |                     |                  |     265      |                      |                   | 257.508993149 |
+|  4   |                     |                  |     266      |                      |                   | 295.214176178 |
+|  5   |                     |                  |     275      |                      |                   | 250.167131424 |
+|  6   |                     |                  |     268      |                      |                   | 230.930089951 |
+|  7   |                     |                  |     267      |                      |                   | 254.165172577 |
+|  8   |                     |                  |     254      |                      |                   | 258.038043976 |
+|  9   |                     |                  |     268      |                      |                   | 321.316003799 |
+|  10  |                     |                  |     269      |                      |                   |  231.47892952 |
+|  11  |                     |                  |     263      |                      |                   | 223.387002945 |
+|  12  |                     |                  |     277      |                      |                   | 239.401102066 |
+|  13  |                     |                  |     271      |                      |                   | 277.990102768 |
+|  14  |                     |                  |     278      |                      |                   | 286.182880402 |
+|  15  |                     |                  |     284      |                      |                   | 233.707904816 |
+|  16  |                     |                  |     277      |                      |                   | 249.553918839 |
+|  17  |                     |                  |     269      |                      |                   | 249.191999435 |
+|  18  |                     |                  |     258      |                      |                   | 243.512868881 |
+|  19  |                     |                  |     260      |                      |                   | 270.675897598 |
+|  20  |                     |                  |     275      |                      |                   |  226.46188736 |
++------+---------------------+------------------+--------------+----------------------+-------------------+---------------+
+
+Przy dwukrotnym wzroscie danych z 10 maszyn i 20 zadan do 10 maszyn i 40 zadan algorytm spowolnil okolo 7 razy.
+
+W programie zastosowano ponadto akcleleracje. Zbadano jak zmienia sie czas liczenia przypadku
+na podstawie przykladu z 100 zadaniami i 10 maszynami (data.080)
+
+[NEH] makespan: 5916, time: 3287.0619297
+------------------------------------------------------------------------
+[qNEH] makespan: 5972, time: 524.874925613
+
+W tym przypadku akceleracja pogorszyla wynik makespan, jednak spowodowala
+przyspieszenie dzialania algorytmu ponad 6 razy
+
+Ostatnim etapem bylo przedstawienie wplywu modyfikacji na algorytm Neh.
+Modyfikacje maja wiecej operacji niz algorytm neh, wiec wykonuja sie dluzej.
+Jednak ich celem jest poprawienie wyniku makespan.
+Test przeprowadzono na przykladzie zawierajacym 100 zadan i 20 maszyn.
+
+Algorytm NEH bez modyfikacji
+Neh time: 857.961893082
+Makespan 6915
+
+Algorytm NEH z pierwsza modyfikacja - POGORSZENIE
+Neh mod1 time: 2184.39102173
+Makespan 6922
+
+algorytm NEH z druga modyfikacja - POPRAWA
+Neh mod2 time: 2486.78302765
+Makespan 6909
+
+Algotytm NEH z trzecia modyfikacja - POPRAWA
+Neh mod3 time: 2268.53084564
+Makespan 6840
+
+Algorytm NEH z czwarta modyfikacja - POPRAWA
+Neh mod4 time: 8223.85406494
+Makespan 6892
+
+Modyfikacje maja za zadanie poprawic wynik makespan, jednak nie zawsze
+tak sie dzieje. Wynik zalezy od danych wejsciowych. Moze sie zdarzyc, ze
+zadna modyfikacja nie polepszy rezultatu.
+Nie doszukano sie zaleznosci pomiedzy powodzeniem danej modyfikacji,
+a iloscia danych.
