@@ -1,11 +1,12 @@
-from bruteforce import bruteforce
+from src.bruteforce import bruteforce
 from prettytable import PrettyTable
-from neh import neh
-from makespan import makespan
-from johnson import johnson
-from task import Task
+from src.neh import neh
+from src.makespan import makespan
+from src.johnson import johnson
+from src.task import Task
 import random
 import copy
+
 
 def generating(iter):
     number_of_machines = int(input("Ile maszyn?: "))
@@ -19,12 +20,12 @@ def generating(iter):
     i = 0
     while i < iter:
         generatedTasks = []
-        cnt_tasks =0
+        cnt_tasks = 0
         cnt_machines = 0
         for cnt_tasks in range(0, number_of_tasks):
             rows = []
             for cnt_machines in range(0, number_of_machines):
-                rows.append(int(random.uniform(1,10)))
+                rows.append(int(random.uniform(1, 10)))
             print("{}".format(rows))
             generatedTasks.append(Task(cnt_tasks, rows))
         bruteforceOrder, timeBruteforce = bruteforce(copy.deepcopy(generatedTasks), number_of_machines)
@@ -44,9 +45,11 @@ def generating(iter):
     x = PrettyTable()
     print("")
     print("----------------------------------------------------------")
-    x.field_names = ["l.p.", "Bruteforce makespan", "Johnson makespan", "Neh makespan", "Czas bruteforce [ms]", "Czas Johnson [ms]", "Czas Neh [ms]"]
+    x.field_names = ["l.p.", "Bruteforce makespan", "Johnson makespan", "Neh makespan", "Czas bruteforce [ms]",
+                     "Czas Johnson [ms]", "Czas Neh [ms]"]
 
     k = 0
     for k in range(0, iter):
-        x.add_row([k+1,"{}".format(bruteforceSpan[k]), "{}".format(johnsonSpan[k]), "{}".format(nehSpan[k]), "{}".format(durationBruteforce[k]), "{}".format(durationJohnson[k]), "{}".format(durationNeh[k])])
+        x.add_row([k + 1, "{}".format(bruteforceSpan[k]), "{}".format(johnsonSpan[k]), "{}".format(nehSpan[k]),
+                   "{}".format(durationBruteforce[k]), "{}".format(durationJohnson[k]), "{}".format(durationNeh[k])])
     print(x)
