@@ -1,4 +1,4 @@
-from src.task import Task
+from task import Task
 import os
 import sys
 import re

@@ -1,7 +1,7 @@
-from src.qneh import qneh
-from src.datareader import get_data
+from qneh import qneh
+from datareader import get_data
 import copy
-from src.makespan import makespan
+from makespan import makespan
 
 
 def test():

@@ -1,6 +1,6 @@
 from timeit import default_timer as timer
 import numpy as np
-from src.makespan import makespan
+from makespan import makespan
 
 
 def get_sequences(index, prev_sequence):

@@ -1,5 +1,5 @@
 from math import exp
-from src.makespan import get_order, makespan
+from makespan import get_order, makespan
 import random
 import copy
 from timeit import default_timer as timer
@@ -12,7 +12,7 @@ def swam_random_tasks(order):
     return order
 
 
-def get_probability(prev_order, new_order, tasks, numb_of_machines, temperature):
+def get_probability(prev_order, new_order, tasks, numb_of_machines, temperature, move_type):
     prev_order_cmax = makespan(prev_order, tasks, numb_of_machines)
     new_order_cmax = makespan(new_order, tasks, numb_of_machines)
 
@@ -25,32 +25,32 @@ def decision(probability):
     return random.random() < probability
 
 
-def cool_down_fcn(temperature, u):
+def cool_down_fcn(temperature, u, cooling_fcn_type):
     return u * temperature
 
 
-def simulated_annealing(tasks, numb_of_machines, temperature):
+def simulated_annealing(tasks, numb_of_machines, temperature, final_temperature, u, cooling_fcn_type, move_type):
     start = timer()
 
     # step 1: create initial order
     order = get_order(tasks)
 
     iterations = 0
-    while temperature > 0.1:
+    while temperature > final_temperature:
         # step 2: generate movement
         new_order = copy.deepcopy(order)
         swam_random_tasks(new_order)
 
         # step 3: make a move or not
-        probability = get_probability(order, new_order, tasks, numb_of_machines, temperature)
+        probability = get_probability(order, new_order, tasks, numb_of_machines, temperature, move_type)
         if decision(probability):
             order = copy.deepcopy(new_order)
 
         # step 4: cooling down
-        temperature = cool_down_fcn(temperature, 0.98)
+        temperature = cool_down_fcn(temperature, u, cooling_fcn_type)
 
         iterations += 1
 
     stop = timer()
 
-    return order, iterations, temperature, (stop-start)*1000
+    return order, iterations, (stop-start)*1000

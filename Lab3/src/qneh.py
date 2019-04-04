@@ -1,7 +1,7 @@
 from timeit import default_timer as timer
 import numpy as np
 import copy
-from src.makespan import makespan
+from makespan import makespan
 
 def column(matrix, i):
     return [row[i] for row in matrix]
