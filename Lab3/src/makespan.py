@@ -5,6 +5,11 @@ def get_order(tasks):
     return order
 
 
+def set_order(tasks, order):
+    for i in range(0, len(tasks)):
+        tasks[i].index = order[i]
+
+
 def makespan(order, tasks, numb_of_machines):
     times = []
     for j in range(0, numb_of_machines):

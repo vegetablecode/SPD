@@ -23,9 +23,10 @@ final_temp = 0.1
 u = 0.98
 cooling_fcn_type = 0
 move_type = 0
+insert = 0
 
 simulated_annealing_order, iterations, sa_time = simulated_annealing(copy.deepcopy(tasks), numb_of_machines, init_temp,
-                                                                     final_temp, u, cooling_fcn_type, move_type)
+                                                                     final_temp, u, cooling_fcn_type, move_type, insert)
 simulated_annealing_makespan = makespan(simulated_annealing_order, tasks, numb_of_machines)
 print("[ SA ] makespan: {}, time: {}" .format(simulated_annealing_makespan, sa_time))
 
