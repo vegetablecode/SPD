@@ -2,6 +2,7 @@ import copy
 from datareader import get_data
 from makespan import makespan, to_natural_order, get_order
 from simulated_annealing import simulated_annealing
+from improved_simulated_annealing import improved_simulated_annealing
 from neh import neh
 
 
@@ -25,13 +26,18 @@ cooling_fcn_type = 0
 move_type = 0
 insert = 0
 
-simulated_annealing_order, iterations, sa_time = simulated_annealing(copy.deepcopy(tasks), numb_of_machines, init_temp,
+simulated_annealing_order, iterations_sa, sa_time = simulated_annealing(copy.deepcopy(tasks), numb_of_machines, init_temp,
                                                                      final_temp, u, cooling_fcn_type, move_type, insert)
 simulated_annealing_makespan = makespan(simulated_annealing_order, tasks, numb_of_machines)
+
+improved_simulated_annealing_order, iterations_isa, isa_time = improved_simulated_annealing(copy.deepcopy(tasks), numb_of_machines, init_temp,
+                                                                     final_temp, u, cooling_fcn_type, move_type, insert)
+improved_simulated_annealing_makespan = makespan(improved_simulated_annealing_order, tasks, numb_of_machines)
 print("[ SA ] makespan: {}, time: {}" .format(simulated_annealing_makespan, sa_time))
+print("[ ISA ] makespan: {}, time: {}" .format(improved_simulated_annealing_makespan, isa_time))
 
 print("-----")
-print("Algorithm finished after: {} iterations" .format(iterations))
+print("Algorithm finished after: {} iterations" .format(iterations_sa))
 print("Initial temperature: {}" .format(init_temp))
 print("Stop temperature: {}" .format(final_temp))
 print("-----")
