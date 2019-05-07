@@ -11,18 +11,19 @@ def set_order(tasks, order):
 
 
 def makespan(order, tasks):
-    numb_of_machines = 3
-    times = []
-    for j in range(0, numb_of_machines):
-        times.append(0)
+    r_times = []  # the moment after finishing preparing task
+    p_times = []  # the moment after finishing executing task
+    q_times = []  # the moment after finishing transporting task
     for i in order:
-        times[0] += tasks[i].times[0]
-        for j in range(1, numb_of_machines):
-            if times[j] < times[j-1]:
-                times[j] = times[j-1]
-            times[j] += tasks[i].times[j]
-
-    return max(times)
+        r_times.append(tasks[i].times[0])
+        # calculate p_time
+        if len(p_times) > 0:
+            # append max of (r_time from this task, p_time from prev one) + execution time
+            p_times.append(max(r_times[-1], p_times[-1]) + tasks[i].times[1])
+        else:
+            p_times.append(r_times[-1] + tasks[i].times[1])
+        q_times.append(p_times[-1] + tasks[i].times[2])
+    return max(q_times)
 
 
 def to_natural_order(order):
