@@ -5,10 +5,6 @@ from src.schrage import schrage_n2, schrage_n2_pmtn
 
 tasks = get_data("in200.txt")
 
-# print all tasks
-#for task in tasks:
-#    print(task.index, " ", task.times)
-
 # INITIAL ORDER
 init_order = get_order(tasks)
 init_makespan = makespan(init_order, tasks)
@@ -20,5 +16,5 @@ shrage_n2_makespan = makespan(schrage_n2_order, tasks)
 print("[SHRAGE N^2] makespan: ", shrage_n2_makespan)
 
 
-schrage_n2_ptmn_order = schrage_n2_pmtn(tasks)
-print("[SHRAGE N^2 PMTN] makespan", schrage_n2_ptmn_order)
+schrage_n2_ptmn_makespan, schrage_n2_ptmn_order = schrage_n2_pmtn(tasks)
+print("[SHRAGE N^2 PMTN] makespan", schrage_n2_ptmn_makespan)
