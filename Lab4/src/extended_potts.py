@@ -1,6 +1,6 @@
 import copy
 import numpy as np
-from src.schrage import get_column, get_min
+from schrage import get_column, get_min
 
 
 # Implementation of NI-P algorithm
