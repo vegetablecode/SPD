@@ -23,7 +23,11 @@ def makespan(order, tasks):
         else:
             p_times.append(r_times[-1] + tasks[i].times[1])
         q_times.append(p_times[-1] + tasks[i].times[2])
-    return max(q_times)
+
+    if len(q_times) > 0:
+        return max(q_times)
+    else:
+        return 0
 
 
 def to_natural_order(order):
