@@ -1,7 +1,9 @@
-from makespan import get_order, makespan
+from src.makespan import get_order
 import copy
 import numpy as np
-from task import Task
+from src.task import Task
+import src.heap_max
+import src.heap_min
 
 def get_column(tasks, element):
     column = []
@@ -69,3 +71,31 @@ def schrage_n2_pmtn(tasks):
             task_l = copy.deepcopy(task_j)
             W_tasks.append(task_j)
     return cmax, get_order(W_tasks)
+
+
+def schrage_nlogn(tasks):
+    N_tasks = src.heap_min.Heap()
+
+    # insert tasks
+    for task in tasks:
+        N_tasks.insert(task)
+
+    G_tasks = src.heap_max.Heap()
+    W_tasks = []  # temporary order
+
+    t = N_tasks.root().times[0]  # min r value
+
+    cmax = 0
+
+    while N_tasks.count() != 0 or G_tasks.count() != 0:
+        while N_tasks.count() != 0 and N_tasks.root().times[0] <= t:
+            G_tasks.insert(N_tasks.remove())
+        if G_tasks.count() == 0:
+            t = N_tasks.root().times[0]
+        else:
+            task_j = G_tasks.remove()
+            t += task_j.times[1]
+            cmax = max(cmax, t + task_j.times[2])
+            W_tasks.append(task_j)
+    return get_order(W_tasks)
+

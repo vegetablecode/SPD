@@ -1,5 +1,5 @@
 from math import exp
-from makespan import get_order, makespan
+from src.makespan import get_order, makespan
 import random
 import copy
 
