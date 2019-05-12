@@ -5,6 +5,7 @@ from src.task import Task
 import src.heap_max
 import src.heap_min
 
+
 def get_column(tasks, element):
     column = []
     for item in tasks:
@@ -99,3 +100,39 @@ def schrage_nlogn(tasks):
             W_tasks.append(task_j)
     return get_order(W_tasks)
 
+
+def schrage_nlogn_pmtn(tasks):
+    N_tasks = src.heap_min.Heap()
+
+    # insert tasks
+    for task in tasks:
+        N_tasks.insert(task)
+
+    G_tasks = src.heap_max.Heap()
+    W_tasks = []  # temporary order
+
+    t = N_tasks.root().times[0]  # min r value
+
+    cmax = 0
+
+    q_0 = 99999999
+    task_l = Task(0, [0, 0, q_0])  # current task
+
+    while N_tasks.count() != 0 or G_tasks.count() != 0:
+        while N_tasks.count() != 0 and N_tasks.root().times[0] <= t:
+            task_j = N_tasks.remove()
+            G_tasks.insert(task_j)
+            if task_j.times[2] > task_l.times[2]:
+                task_l.times[1] = t - task_j.times[0]
+                t = task_j.times[0]
+                if task_l.times[1] > 0:
+                    G_tasks.insert(task_l)  # continue paused
+        if G_tasks.count() == 0:
+            t = N_tasks.root().times[0]
+        else:
+            task_j = G_tasks.remove()
+            t += task_j.times[1]
+            cmax = max(cmax, t + task_j.times[2])
+            task_l = copy.deepcopy(task_j)
+            W_tasks.append(task_j)
+    return cmax, get_order(W_tasks)
