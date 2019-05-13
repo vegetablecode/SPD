@@ -6,7 +6,7 @@ def swap(t, left, right):
 
 
 def get_parent_node(n):
-    return math.floor((n-1)/2)
+    return math.floor((n-1)//2)
 
 
 def get_left_node(n):

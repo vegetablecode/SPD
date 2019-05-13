@@ -1,9 +1,9 @@
-from src.makespan import get_order
+from makespan import get_order
 import copy
 import numpy as np
-from src.task import Task
-import src.heap_max
-import src.heap_min
+from task import Task
+import heap_max
+import heap_min
 from timeit import default_timer as timer
 
 
@@ -81,13 +81,13 @@ def schrage_n2_pmtn(tasks):
 
 def schrage_nlogn(tasks):
     start = timer()
-    N_tasks = src.heap_min.Heap()
+    N_tasks = heap_min.Heap()
 
     # insert tasks
     for task in tasks:
         N_tasks.insert(task)
 
-    G_tasks = src.heap_max.Heap()
+    G_tasks = heap_max.Heap()
     W_tasks = []  # temporary order
 
     t = N_tasks.root().times[0]  # min r value
@@ -110,13 +110,13 @@ def schrage_nlogn(tasks):
 
 def schrage_nlogn_pmtn(tasks):
     start = timer()
-    N_tasks = src.heap_min.Heap()
+    N_tasks = heap_min.Heap()
 
     # insert tasks
     for task in tasks:
         N_tasks.insert(task)
 
-    G_tasks = src.heap_max.Heap()
+    G_tasks = heap_max.Heap()
     W_tasks = []  # temporary order
 
     t = N_tasks.root().times[0]  # min r value
