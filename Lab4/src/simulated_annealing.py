@@ -2,6 +2,8 @@ from math import exp
 from makespan import get_order, makespan
 import random
 import copy
+from timeit import default_timer as timer
+
 
 def swam_random_tasks(order):
     first_index = random.randint(0, len(order)-1)
@@ -28,6 +30,7 @@ def cool_down_fcn(temperature, u):
 
 
 def simulated_annealing(tasks, temperature, min_temperature, u):
+    start = timer()
     # step 1: create initial order
     order = get_order(tasks)
 
@@ -43,5 +46,5 @@ def simulated_annealing(tasks, temperature, min_temperature, u):
 
         # step 4: cooling down
         temperature = cool_down_fcn(temperature, u)
-
-    return order
+    stop = timer()
+    return order, (stop-start)*1000
