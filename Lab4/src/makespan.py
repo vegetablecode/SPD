@@ -1,3 +1,6 @@
+from task import Task
+from random import randint
+
 def get_order(tasks):
     order = []
     for item in tasks:
@@ -35,3 +38,17 @@ def to_natural_order(order):
     for i in range(0, len(order)):
         natural_order.append(order[i] + 1)
     return natural_order
+
+
+def create_instances(n):
+    tasks = []
+    for i in range(0, n):
+        minimum = 1
+        maximum = 3000
+        times = []
+        times.append(randint(minimum, maximum))
+        times.append(randint(minimum, maximum))
+        times.append(randint(minimum, maximum))
+
+        tasks.append(Task(i, times))
+    return tasks
