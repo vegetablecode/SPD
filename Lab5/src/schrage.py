@@ -133,4 +133,4 @@ def schrage_pmtn(tasks):
             cmax = max(cmax, t + task_j.times[2])
             task_l = copy.deepcopy(task_j)
             W_tasks.append(task_j)
-    return cmax, get_order(W_tasks)
+    return cmax, W_tasks
