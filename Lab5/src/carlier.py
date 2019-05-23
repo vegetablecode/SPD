@@ -37,7 +37,6 @@ def calculate_c(b, a, pi):
 def carlier_dl(tasks):
     global ub
     global pi
-    start = timer()
 
     u, pi = schrage(copy.deepcopy(tasks))
 
@@ -51,8 +50,7 @@ def carlier_dl(tasks):
 
     #  if c doesn't exist
     if c < 0:
-        stop = timer()
-        return ub, (stop - start) * 1000
+        return ub
 
     # calculate r1, p1, q1
     r_1 = pi[c + 1].times[0]
@@ -85,7 +83,7 @@ def carlier_dl(tasks):
     lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
 
     if lb < ub:
-        ub, time = carlier_dl(copy.deepcopy(pi))
+        ub = carlier_dl(copy.deepcopy(pi))
     pi[c].times[0] = r_pi_c
 
     # RIGHT NODE
@@ -107,102 +105,97 @@ def carlier_dl(tasks):
     lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
 
     if lb < ub:
-        ub, time = carlier_dl(copy.deepcopy(pi))
+        ub = carlier_dl(copy.deepcopy(pi))
     pi[c].times[2] = r_pi_c
 
-    stop = timer()
-    return ub, (stop - start) * 1000
+    return ub
 
 
 # wide left
 def carlier_wl(tasks):
-    start = timer()
-
     # ----- "GLOBAL" VARIABLES DECLARATION ----- #
     # u: cmax for schrage
     # pi: tasks sorted with schrage
     # ub: upper border
     # lb: lower border
 
-    u, pi = schrage(copy.deepcopy(tasks))
-    ub = 999999999
-    lb = 0
+    global u
+    global pi
+    global ub
+    global lb
+    global pi_list
 
-    pi_list = [pi]
+    u, pi = schrage(copy.deepcopy(pi_list[0]))
+    if u < ub:
+        ub = u
 
-    # --------- CARLIER ALGORITHM LOOP --------- #
-    while True:
-        u, pi = schrage(copy.deepcopy(pi_list[0]))
-        if u < ub:
-            ub = u
+    # find b, a, c values
+    b = calculate_b(u, pi)
+    a = calculate_a(b, u, pi)
+    c = calculate_c(b, a, pi)
 
-        # find b, a, c values
-        b = calculate_b(u, pi)
-        a = calculate_a(b, u, pi)
-        c = calculate_c(b, a, pi)
+    #  if c doesn't exist
+    if c < 0:
+        return ub
 
-        #  if c doesn't exist
-        if c < 0:
-            stop = timer()
-            return ub, (stop - start) * 1000
+    # calculate r1, p1, q1
+    r_1 = pi[c + 1].times[0]
+    p_1 = 0
+    q_1 = pi[c + 1].times[2]
 
-        # calculate r1, p1, q1
-        r_1 = pi[c + 1].times[0]
-        p_1 = 0
-        q_1 = pi[c + 1].times[2]
+    for i in range(c + 1, b + 1):
+        p_1 += pi[i].times[1]
+        if r_1 > pi[i].times[0]:
+            r_1 = pi[i].times[0]
+        if q_1 > pi[i].times[2]:
+            q_1 = pi[i].times[2]
 
-        for i in range(c + 1, b + 1):
-            p_1 += pi[i].times[1]
-            if r_1 > pi[i].times[0]:
-                r_1 = pi[i].times[0]
-            if q_1 > pi[i].times[2]:
-                q_1 = pi[i].times[2]
+    # LEFT NODE
+    r_pi_c = pi[c].times[0]
+    pi[c].times[0] = max(pi[c].times[0], r_1 + p_1)
 
-        # LEFT NODE
-        r_pi_c = pi[c].times[0]
-        pi[c].times[0] = max(pi[c].times[0], r_1 + p_1)
+    p_2 = 0
+    r_2 = pi[c].times[0]
+    q_2 = pi[c].times[2]
 
-        p_2 = 0
-        r_2 = pi[c].times[0]
-        q_2 = pi[c].times[2]
+    for i in range(c, b + 1):
+        p_2 += pi[i].times[1]
+        if r_2 > pi[i].times[0]:
+            r_2 = pi[i].times[0]
+        if q_2 > pi[i].times[2]:
+            q_2 = pi[i].times[2]
 
-        for i in range(c, b + 1):
-            p_2 += pi[i].times[1]
-            if r_2 > pi[i].times[0]:
-                r_2 = pi[i].times[0]
-            if q_2 > pi[i].times[2]:
-                q_2 = pi[i].times[2]
+    lb, ptmn_order = schrage_pmtn(copy.deepcopy(pi))
+    lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
+    if lb < ub:
+        pi_list.append(copy.deepcopy(pi))
+    pi[c].times[0] = r_pi_c
 
-        lb, ptmn_order = schrage_pmtn(copy.deepcopy(pi))
-        lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
-        if lb < ub:
-            pi_list.append(copy.deepcopy(pi))
-        pi[c].times[0] = r_pi_c
+    # RIGHT NODE
+    r_pi_c = pi[c].times[2]
+    pi[c].times[2] = max(pi[c].times[2], q_1 + p_1)
 
-        # RIGHT NODE
-        r_pi_c = pi[c].times[2]
-        pi[c].times[2] = max(pi[c].times[2], q_1 + p_1)
+    p_2 = 0
+    r_2 = pi[c].times[0]
+    q_2 = pi[c].times[2]
 
-        p_2 = 0
-        r_2 = pi[c].times[0]
-        q_2 = pi[c].times[2]
+    for i in range(c, b + 1):
+        p_2 += pi[i].times[1]
+        if r_2 > pi[i].times[0]:
+            r_2 = pi[i].times[0]
+        if q_2 > pi[i].times[2]:
+            q_2 = pi[i].times[2]
 
-        for i in range(c, b + 1):
-            p_2 += pi[i].times[1]
-            if r_2 > pi[i].times[0]:
-                r_2 = pi[i].times[0]
-            if q_2 > pi[i].times[2]:
-                q_2 = pi[i].times[2]
+    lb, order = schrage_pmtn(copy.deepcopy(pi))
+    lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
 
-        lb, order = schrage_pmtn(copy.deepcopy(pi))
-        lb = max(max(r_1 + q_1 + p_1, r_2 + q_2 + p_2), lb)
+    if lb < ub:
+        pi_list.append(copy.deepcopy(pi))
+    pi[c].times[2] = r_pi_c
 
-        if lb < ub:
-            pi_list.append(copy.deepcopy(pi))
-        pi[c].times[2] = r_pi_c
-
-        # remove checked node from the list
-        pi_list.pop(0)
+    # remove checked node from the list
+    pi_list.pop(0)
+    return carlier_wl(tasks)
 
 
 task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
@@ -215,12 +208,15 @@ for i in range(0, len(task_list)):
     print("TEST: ", task_list[i])
     print("-")
 
-    # ---------------- WIDE LEFT
+    # ---------------- DEEP LEFT
     ub = 999999999
     u, pi = schrage(copy.deepcopy(tasks))
 
     # ALGORITHM
-    carlier_makespan, carlier_time = carlier_dl(copy.deepcopy(tasks))
+    start = timer()
+    carlier_makespan = carlier_dl(copy.deepcopy(tasks))
+    stop = timer()
+    carlier_time = (stop-start)*1000
     print("[CARLIER WL] makespan: {}, time: {}".format(carlier_makespan, carlier_time))
 
     # VALIDATION
@@ -229,14 +225,20 @@ for i in range(0, len(task_list)):
     print("-")
 
     # ---------------- WIDE LEFT
-    ub = 999999999
     u, pi = schrage(copy.deepcopy(tasks))
+    ub = 999999999
+    lb = 0
+
+    pi_list = [pi]
 
     # ALGORITHM
-    carlier_makespan, carlier_time = carlier_wl(copy.deepcopy(tasks))
-    print("[CARLIER DL] makespan: {}, time: {}".format(carlier_makespan, carlier_time))
+    start = timer()
+    carlier_wl(copy.deepcopy(tasks))
+    stop = timer()
+    carlier_time = (stop - start) * 1000
+    print("[CARLIER DL] makespan: {}, time: {}".format(ub, carlier_time))
 
     # VALIDATION
-    test_result = ["BAD RESULT", "OK"][carlier_makespan == result]
+    test_result = ["BAD RESULT", "OK"][ub == result]
     print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
     print("---------------------------------------------")
