@@ -1,6 +1,8 @@
 from schrage import schrage, schrage_pmtn
 import copy
 from timeit import default_timer as timer
+from makespan import makespan, get_order
+from schrage import schrage_n2, schrage_n2_pmtn
 from datareader import get_data
 import numpy as np
 
@@ -128,8 +130,17 @@ for i in range(0, len(task_list)):
     tasks = get_data(task_list[i])
     result = result_list[i]
 
-    print("TEST: ", task_list[i])
+    print("COMPARISON TEST: ", task_list[i])
     print("-")
+
+    # -------------------------------------------------SCHRAGE ORDER
+    schrage_n2_order, schrage_n2_time = schrage_n2(tasks)
+    shrage_n2_makespan = makespan(schrage_n2_order, tasks)
+    print("[SHRAGE] makespan: {}, time: {}" .format(shrage_n2_makespan, schrage_n2_time))
+
+    # -------------------------------------------------SCHRAGE PMTN ORDER
+    schrage_n2_ptmn_makespan, schrage_n2_ptmn_order, schrage_n2_ptmn_time = schrage_n2_pmtn(tasks)
+    print("[SHRAGE PMTN] makespan: {}, time: {}" .format(schrage_n2_ptmn_makespan, schrage_n2_ptmn_time))
 
     # ------------------------------------------------ WIDE LEFT
     u, pi = schrage(copy.deepcopy(tasks))

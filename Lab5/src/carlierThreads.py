@@ -3,6 +3,7 @@ import copy
 from timeit import default_timer as timer
 from datareader import get_data
 import numpy as np
+from carlierPure import carlier_wl_pure
 #Libraries needed for threading
 import multiprocessing
 import threading
@@ -151,7 +152,7 @@ for i in range(0, len(task_list)):
     tasks = get_data(task_list[i])
     result = result_list[i]
 
-    print("TEST: ", task_list[i])
+    print("THREADS TEST: ", task_list[i])
     print("-")
 
     # ------------------------------------------------ WIDE LEFT
@@ -165,12 +166,20 @@ for i in range(0, len(task_list)):
     start = timer()
     carlier_wl_parallel(copy.deepcopy(tasks))
     stop = timer()
-    carlier_time = (stop - start) * 1000
-    print("[CARLIER DL PARALLEL] makespan: {}, time: {}".format(ub, carlier_time))
+    carlier_time_parallel = (stop - start) * 1000
+    print("[CARLIER DL PARALLEL] makespan: {}, time: {}".format(ub, carlier_time_parallel))
 
+    carlier_wl_pure(copy.deepcopy(tasks))
+    stop = timer()
+    carlier_time_pure = (stop - start) * 1000
+    print("[CARLIER DL SEQUENCE] makespan: {}, time: {}".format(ub, carlier_time_pure))
     # VALIDATION
     test_result = ["BAD RESULT", "OK"][ub == result]
     print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
     print("-")
+    if carlier_time_pure > carlier_time_parallel:
+        print("SEQUENCE FASTER")
+    else:
+        print("PARALLEL FASTER")
 
     print("---------------------------------------------")

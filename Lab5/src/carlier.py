@@ -311,7 +311,7 @@ for i in range(0, len(task_list)):
     tasks = get_data(task_list[i])
     result = result_list[i]
 
-    print("TEST: ", task_list[i])
+    print("TYPES OF CARLIER TEST: ", task_list[i])
     print("-")
 
     # ------------------------------------------------ DEEP LEFT
