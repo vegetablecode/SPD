@@ -14,22 +14,19 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="45">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="carlier.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/carlier.py">
+      <file leaf-file-name="carlierThreads.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/carlierThreads.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5460">
-              <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
+            <state relative-caret-position="406">
+              <caret line="126" column="14" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="14" />
               <folding>
-                <element signature="e#0#45#0" expanded="true" />
+                <element signature="e#0#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,11 +35,44 @@
       <file leaf-file-name="schrage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/schrage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="73" column="48" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
+            <state relative-caret-position="1608">
+              <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="carlier.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/carlier.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="91">
+              <caret line="323" selection-start-line="323" selection-end-line="323" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#70#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timeBenchmark.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/timeBenchmark.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="345" column="22" selection-start-line="345" selection-start-column="4" selection-end-line="345" selection-end-column="22" />
+              <folding>
+                <element signature="e#0#70#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="makespan.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/makespan.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="3" column="13" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -81,6 +111,7 @@
       <find>print</find>
       <find>time</find>
       <find>argsort</find>
+      <find>deep_gr</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -118,7 +149,9 @@
         <option value="$PROJECT_DIR$/datasets/data.000" />
         <option value="$PROJECT_DIR$/src/schrage.py" />
         <option value="$PROJECT_DIR$/src/main.py" />
+        <option value="$PROJECT_DIR$/src/carlierThreads.py" />
         <option value="$PROJECT_DIR$/src/carlier.py" />
+        <option value="$PROJECT_DIR$/src/timeBenchmark.py" />
       </list>
     </option>
   </component>
@@ -172,7 +205,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.carlier">
+  <component name="RunManager" selected="Python.timeBenchmark">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Lab4" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -209,13 +242,53 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="carlierThreads" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lab4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/carlierThreads.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="timeBenchmark" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Lab4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/timeBenchmark.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list>
       <item itemvalue="Python.Main" />
       <item itemvalue="Python.carlier" />
+      <item itemvalue="Python.carlierThreads" />
+      <item itemvalue="Python.timeBenchmark" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.timeBenchmark" />
         <item itemvalue="Python.carlier" />
+        <item itemvalue="Python.carlierThreads" />
         <item itemvalue="Python.Main" />
       </list>
     </recent_temporary>
@@ -246,10 +319,10 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49827588" weight="0.13997114" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49827588" visible="true" weight="0.13953489" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32935324" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5002633" side_tool="true" weight="0.21094528" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4997367" visible="true" weight="0.21090908" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997367" weight="0.23757575" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
       <window_info id="Structure" order="1" sideWeight="0.5017241" side_tool="true" weight="0.36927223" />
@@ -281,20 +354,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/datasets/data.000">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/schrage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="870">
-          <caret line="63" column="47" lean-forward="true" selection-start-line="63" selection-start-column="47" selection-end-line="63" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/heap_max.py" />
     <entry file="file://$PROJECT_DIR$/src/heap_min.py" />
     <entry file="file://$PROJECT_DIR$/src/main.py">
@@ -501,13 +560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/makespan.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="39" column="24" lean-forward="true" selection-start-line="39" selection-start-column="24" selection-end-line="39" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datasets/data.000">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -517,8 +569,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="28" />
+        <state relative-caret-position="45">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/carlierThreads.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="126" column="14" selection-start-line="126" selection-start-column="5" selection-end-line="126" selection-end-column="14" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -527,8 +586,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/schrage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="73" column="48" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
+        <state relative-caret-position="1608">
+          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>
@@ -537,10 +596,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/carlier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5460">
-          <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
+        <state relative-caret-position="91">
+          <caret line="323" selection-start-line="323" selection-end-line="323" selection-end-column="34" />
           <folding>
-            <element signature="e#0#45#0" expanded="true" />
+            <element signature="e#0#70#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/makespan.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/timeBenchmark.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="345" column="22" selection-start-line="345" selection-start-column="4" selection-end-line="345" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#70#0" expanded="true" />
           </folding>
         </state>
       </provider>

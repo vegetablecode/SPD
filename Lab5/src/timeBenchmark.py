@@ -3,7 +3,7 @@ import copy
 from timeit import default_timer as timer
 from datareader import get_data
 import numpy as np
-from makespan import makespan
+from makespan import makespan, get_order, create_instances
 
 
 def calculate_b(u, pi):
@@ -215,7 +215,8 @@ def carlier_greedy(tasks):
 
     # sort tasks
     sort_tasks(pi_list, lb_list)
-    return carlier_greedy(tasks)
+    if len(pi_list) > 0:
+        return carlier_greedy(tasks)
 
 
 # wide left
@@ -302,11 +303,9 @@ def carlier_wl(tasks):
 
     # remove checked node from the list
     pi_list.pop(0)
-    return carlier_wl(tasks)
+    if len(pi_list) > 0:
+        return carlier_wl(tasks)
 
-
-task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
-result_list = [228, 3026, 3665, 3309, 3191, 3618, 3446, 3821, 3634]
 
 schrage_makespans = []
 schrage_pmtn_makespans = []
@@ -320,28 +319,29 @@ wide_left_times = []
 deep_left_times = []
 greedy_times = []
 
+taskset = []
+x = []
 
-for i in range(0, len(task_list)):
-    tasks = get_data(task_list[i])
-    result = result_list[i]
+for i in range(5, 300):
+    taskset.append(create_instances(i))
+    x.append(i)
 
-    print("TYPES OF CARLIER TEST: ", task_list[i])
-    print("-")
+iter = 0
+for i in range(0, len(taskset)):
+    tasks = copy.deepcopy(taskset[i])
 
     # ------------------------------------------------ SCHRAGE
     # SCHRAGE ORDER
     schrage_n2_order, schrage_n2_time = schrage_n2(tasks)
     shrage_n2_makespan = makespan(schrage_n2_order, tasks)
     # print("[SHRAGE N^2] order: ", schrage_n2_order)
-    print("[SHRAGE] makespan: {}, time: {}".format(shrage_n2_makespan, schrage_n2_time))
-    print("-")
+
     schrage_makespans.append(shrage_n2_makespan)
     schrage_times.append(schrage_n2_time)
     # ------------------------------------------------ SCHRAGE
     # SCHRAGE ORDER N2 PMTN
     schrage_n2_ptmn_makespan, schrage_n2_ptmn_order, schrage_n2_ptmn_time = schrage_n2_pmtn(tasks)
-    print("[SHRAGE PMTN] makespan: {}, time: {}".format(schrage_n2_ptmn_makespan, schrage_n2_ptmn_time))
-    print("-")
+
     schrage_pmtn_makespans.append(schrage_n2_ptmn_makespan)
     schrage_pmtn_times.append(schrage_n2_ptmn_time)
     # ------------------------------------------------ DEEP LEFT
@@ -353,12 +353,6 @@ for i in range(0, len(task_list)):
     carlier_makespan = carlier_dl(copy.deepcopy(tasks))
     stop = timer()
     carlier_time = (stop-start)*1000
-    print("[CARLIER WL] makespan: {}, time: {}".format(carlier_makespan, carlier_time))
-
-    # VALIDATION
-    test_result = ["BAD RESULT", "OK"][carlier_makespan == result]
-    print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
-    print("-")
     deep_left_makespans.append(carlier_makespan)
     deep_left_times.append(carlier_time)
     # ------------------------------------------------ WIDE LEFT
@@ -373,12 +367,6 @@ for i in range(0, len(task_list)):
     carlier_wl(copy.deepcopy(tasks))
     stop = timer()
     carlier_time = (stop - start) * 1000
-    print("[CARLIER DL] makespan: {}, time: {}".format(ub, carlier_time))
-
-    # VALIDATION
-    test_result = ["BAD RESULT", "OK"][ub == result]
-    print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
-    print("-")
 
     wide_left_makespans.append(ub)
     wide_left_times.append(carlier_time)
@@ -396,12 +384,10 @@ for i in range(0, len(task_list)):
     carlier_greedy(copy.deepcopy(tasks))
     stop = timer()
     carlier_time = (stop - start) * 1000
-    print("[CARLIER GREEDY] makespan: {}, time: {}".format(ub, carlier_time))
 
-    # VALIDATION
-    test_result = ["BAD RESULT", "OK"][ub == result]
-    print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
-
-    print("---------------------------------------------")
     greedy_makespans.append(ub)
     greedy_times.append(carlier_time)
+    #print(iter)
+    iter += 1
+
+print("Finished")

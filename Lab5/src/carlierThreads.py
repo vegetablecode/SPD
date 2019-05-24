@@ -1,3 +1,5 @@
+import time
+
 from schrage import schrage, schrage_pmtn
 import copy
 from timeit import default_timer as timer
@@ -137,8 +139,8 @@ def carlier_wl_parallel(tasks):
     thread2.start()
     thread2.join()
     #---------------------------------------------------------------------------
-    while threading.activeCount()>1:
-        time.sleep(1)
+    #while threading.activeCount()>1:
+        #time.sleep(1)
 
     # remove checked node from the list
     pi_list.pop(0)
@@ -147,6 +149,12 @@ def carlier_wl_parallel(tasks):
 
 task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
 result_list = [228, 3026, 3665, 3309, 3191, 3618, 3446, 3821, 3634]
+
+deep_left_sequence_makespans = []
+deep_left_parallel_makespans = []
+
+deep_left_sequence_times = []
+deep_left_parallel_times = []
 
 for i in range(0, len(task_list)):
     tasks = get_data(task_list[i])
@@ -169,10 +177,17 @@ for i in range(0, len(task_list)):
     carlier_time_parallel = (stop - start) * 1000
     print("[CARLIER DL PARALLEL] makespan: {}, time: {}".format(ub, carlier_time_parallel))
 
+    deep_left_parallel_makespans.append(ub)
+    deep_left_parallel_times.append(carlier_time_parallel)
+
     carlier_wl_pure(copy.deepcopy(tasks))
     stop = timer()
     carlier_time_pure = (stop - start) * 1000
     print("[CARLIER DL SEQUENCE] makespan: {}, time: {}".format(ub, carlier_time_pure))
+
+    deep_left_sequence_makespans.append(ub)
+    deep_left_sequence_times.append(carlier_time_pure)
+
     # VALIDATION
     test_result = ["BAD RESULT", "OK"][ub == result]
     print("RESULT: ", test_result, " | SHOULD BE: ", result_list[i])
