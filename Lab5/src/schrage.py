@@ -1,7 +1,7 @@
-from src.makespan import get_order, makespan
+from makespan import get_order, makespan
 import copy
 import numpy as np
-from src.task import Task
+from task import Task
 from timeit import default_timer as timer
 
 

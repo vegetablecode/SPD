@@ -1,7 +1,7 @@
-from src.schrage import schrage, schrage_pmtn
+from schrage import schrage, schrage_pmtn
 import copy
 from timeit import default_timer as timer
-from src.datareader import get_data
+from datareader import get_data
 import numpy as np
 
 

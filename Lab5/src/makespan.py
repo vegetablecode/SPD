@@ -1,4 +1,4 @@
-from src.task import Task
+from task import Task
 from random import randint
 
 def get_order(tasks):
