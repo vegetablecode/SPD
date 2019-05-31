@@ -1,8 +1,6 @@
 from __future__ import print_function
 from ortools.linear_solver import pywraplp
-import copy
 from src.datareader import get_data
-from src.makespan import makespan, to_natural_order, get_order
 import numpy as np
 
 task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
