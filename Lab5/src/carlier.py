@@ -215,7 +215,8 @@ def carlier_greedy(tasks):
 
     # sort tasks
     sort_tasks(pi_list, lb_list)
-    return carlier_greedy(tasks)
+    if len(pi_list) > 0:
+        return carlier_wl(tasks)
 
 
 # wide left
@@ -302,7 +303,8 @@ def carlier_wl(tasks):
 
     # remove checked node from the list
     pi_list.pop(0)
-    return carlier_wl(tasks)
+    if len(pi_list) > 0:
+        return carlier_wl(tasks)
 
 
 task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
