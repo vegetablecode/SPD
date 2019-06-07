@@ -4,10 +4,10 @@ import sys
 import re
 
 
-def get_data(dataset_name):
+def get_data(directory, dataset_name):
     # open file with data
     file_dir = os.path.dirname(os.path.realpath('__file__'))
-    filename = os.path.join(file_dir, '../datasets/' + dataset_name)
+    filename = os.path.join(file_dir, '../datasets/' + directory + '/' + dataset_name)
 
     # if the file does not exist
     if not os.path.isfile(filename):

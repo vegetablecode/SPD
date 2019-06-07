@@ -9,9 +9,13 @@ def MinimalJobshopSat():
     print("Minimal JOB SHOP Problem")
     # Create the model.
     model = cp_model.CpModel()
+
+    directory = "jobshop"
     task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
+    result_list = [272, 1411, 1404, 1388, 1332, 1407, 1400, 1357, 1350]
+
     for task_name in task_list:
-        tasks = get_data(task_name)
+        tasks = get_data(directory, task_name)
         #Converting tasks to other convention
         jobs_data = []
         for task in tasks:
