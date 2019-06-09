@@ -1,8 +1,7 @@
 from __future__ import print_function
 from ortools.linear_solver import pywraplp
 from ortools.sat.python import cp_model
-from datareader import get_data
-import numpy as np
+from datareader import get_job_data
 import collections
 
 def MinimalJobshopSat():
@@ -12,21 +11,21 @@ def MinimalJobshopSat():
 
     directory = "jobshop"
     task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
-    result_list = [272, 1411, 1404, 1388, 1332, 1407, 1400, 1357, 1350]
 
     for task_name in task_list:
-        tasks = get_data(directory, task_name)
+        tasks = get_job_data(directory, task_name)
         #Converting tasks to other convention
         jobs_data = []
         for task in tasks:
             jobs_data_line = []
             for i in range(0, len(task.times)):
                 singleTask = []
-                singleTask.append(i)
-                singleTask.append(task.times[i])
+                singleTask.append(task.index)
+                singleTask.append(task.times)
                 jobs_data_line.append(singleTask)
             jobs_data.append(jobs_data_line)
         #---END OF CONVERSION----------------
+
         #The number of machines
         machines_count = 1 + max(task[0] for job in jobs_data for task in job)
         #The number of machines range
@@ -82,6 +81,7 @@ def MinimalJobshopSat():
         if status == cp_model.OPTIMAL:
             # Finally print the solution found.
             print('Optimal Schedule Length: %i' % solver.ObjectiveValue())
+        else:
+            print('Cannot find optimal schedule')
             
 MinimalJobshopSat();
-tasks = get_data("data.000")

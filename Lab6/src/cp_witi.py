@@ -10,8 +10,8 @@ import numpy as np
 # times[2] -> D (max time)
 
 directory = "witi"
-task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008", "data.009"]
-result_list = [776, 799, 742, 688, 497, 440, 423, 417, 405, 393, 897]
+task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008", "data.009", "data.010"]
+result_list = [766, 799, 742, 688, 497, 440, 423, 417, 405, 393, 897]
 
 for i in range(len(task_list)):
     task_name = task_list[i]
