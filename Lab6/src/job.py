@@ -10,9 +10,11 @@ def MinimalJobshopSat():
     model = cp_model.CpModel()
 
     directory = "jobshop"
-    task_list = ["data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
-    for task_name in task_list:
-        tasks = get_job_data(directory, task_name)
+    task_list = ["data.google", "data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
+    answers = [11, 272, 1411, 1404, 1388, 1332, 1407, 1400, 1357, 1350]
+
+    for k in range(len(task_list)):
+        tasks = get_job_data(directory, task_list[k])
 
         #Converting tasks to other convention
         jobs_data = []
@@ -20,12 +22,16 @@ def MinimalJobshopSat():
             jobs_data_line = []
             for i in range(0, len(task.times)):
                 singleTask = []
-                singleTask.append(task.machines[i])
+                singleTask.append(task.machines[i]-1)
                 singleTask.append(task.times[i])
                 jobs_data_line.append(singleTask)
             jobs_data.append(jobs_data_line)
-        print (task_name)
+        print (task_list[k])
         #---END OF CONVERSION----------------
+
+        # show converted
+        for i in range(len(jobs_data)):
+            print(jobs_data[i])
 
         #The number of machines
         machines_count = 1 + max(task[0] for job in jobs_data for task in job)
@@ -82,6 +88,7 @@ def MinimalJobshopSat():
         if status == cp_model.OPTIMAL:
             # Finally print the solution found.
             print('Optimal Schedule Length: %i' % solver.ObjectiveValue())
+            print("Answer: ", answers[k])
         else:
             print('Cannot find optimal schedule')
         print('-------------------------------------')
