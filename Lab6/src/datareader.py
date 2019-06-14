@@ -1,3 +1,4 @@
+from jobtask import JobTask
 from task import Task
 import os
 import sys
@@ -49,13 +50,14 @@ def get_job_data(directory, dataset_name):
                 numb_of_machines = n[0]
                 numb_of_tasks = n[1]
             else:
+                machines_list = [0] * n[0]
                 times_list = [0] * n[0]
-                for i in range(1, n[0]*2, 2):
-                    #print("ilosc maszyn: ", n[0], " i maszyny: ", n[i]-1, " czas maszyny: ", n[i+1])
-                    times_list[n[i]-1] = n[i+1]
-                tasks.append(Task(cnt - 1, times_list))
+                j = 1
+                for i in range(0, n[0]):
+                    machines_list[i] = n[j]
+                    times_list[i] = n[j+1]
+                    j += 2
+                tasks.append(JobTask(cnt - 1, machines_list, times_list))
             cnt += 1
-    for task in tasks:
-        print("i: ", task.index)
-        print(task.times)
+    
     return tasks
