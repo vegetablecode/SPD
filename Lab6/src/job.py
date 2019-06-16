@@ -10,8 +10,8 @@ def MinimalJobshopSat():
     model = cp_model.CpModel()
 
     directory = "jobshop"
-    task_list = ["data.google", "data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
-    answers = [11, 272, 1411, 1404, 1388, 1332, 1407, 1400, 1357, 1350]
+    task_list = ["data.wyklad", "data.google", "data.000", "data.001", "data.002", "data.003", "data.004", "data.005", "data.006", "data.007", "data.008"]
+    answers = [18, 11, 272, 1411, 1404, 1388, 1332, 1407, 1400, 1357, 1350]
 
     for k in range(len(task_list)):
         tasks = get_job_data(directory, task_list[k])
@@ -26,12 +26,15 @@ def MinimalJobshopSat():
                 singleTask.append(task.times[i])
                 jobs_data_line.append(singleTask)
             jobs_data.append(jobs_data_line)
-        print (task_list[k])
+        print("DATASET: ", task_list[k])
         #---END OF CONVERSION----------------
 
         # show converted
+        print("-----")
+        print("initial: ")
         for i in range(len(jobs_data)):
             print(jobs_data[i])
+        print("-----")
 
         #The number of machines
         machines_count = 1 + max(task[0] for job in jobs_data for task in job)
@@ -85,10 +88,50 @@ def MinimalJobshopSat():
         solver = cp_model.CpSolver()
         status = solver.Solve(model)
 
+        # Create one list of assigned tasks per machine.
+        assigned_jobs = collections.defaultdict(list)
+        for job_id, job in enumerate(jobs_data):
+            for task_id, task in enumerate(job):
+                machine = task[0]
+                assigned_jobs[machine].append(
+                    assigned_task_type(
+                        start=solver.Value(all_tasks[job_id, task_id].start),
+                        job=job_id,
+                        index=task_id,
+                        duration=task[1]))
+
+        # Create per machine output lines.
+        output = ''
+        for machine in all_machines:
+            # Sort by starting time.
+            assigned_jobs[machine].sort()
+            sol_line_tasks = 'Machine ' + str(machine) + ': '
+            sol_line = '           '
+
+            for assigned_task in assigned_jobs[machine]:
+                name = 'job_%i_%i' % (assigned_task.job+1, assigned_task.index+1)
+                # Add spaces to output to align columns.
+                sol_line_tasks += '%-10s' % name
+
+                start = assigned_task.start
+                duration = assigned_task.duration
+                sol_tmp = '[%i,%i]' % (start, start + duration)
+                # Add spaces to output to align columns.
+                sol_line += '%-10s' % sol_tmp
+
+            sol_line += '\n'
+            sol_line_tasks += '\n'
+            output += sol_line_tasks
+            output += sol_line
+
         if status == cp_model.OPTIMAL:
             # Finally print the solution found.
             print('Optimal Schedule Length: %i' % solver.ObjectiveValue())
             print("Answer: ", answers[k])
+            print("-----")
+            print("optimal: ")
+            print(output)
+            print("-----")
         else:
             print('Cannot find optimal schedule')
         print('-------------------------------------')
